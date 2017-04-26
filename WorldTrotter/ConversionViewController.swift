@@ -10,6 +10,7 @@ import UIKit
 
 class ConversionViewController: UIViewController, UITextFieldDelegate {
     
+    @IBOutlet weak var isReallyLabel: UILabel!
     @IBOutlet weak var celsiusLabel: UILabel!
     @IBOutlet weak var textField: UITextField!
     @IBAction func fahrenheitFieldEditingChanged(_ sender: UITextField) {
@@ -57,9 +58,30 @@ class ConversionViewController: UIViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
         updateCelsiusLabel()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        let date = Date()
+        let calendar = Calendar.current
+        let hour = calendar.component(.hour, from: date)
+        if hour >= 7 && hour < 19{
+            self.view.backgroundColor = UIColor.white
+            textField.backgroundColor = UIColor.clear
+            textField.textColor = UIColor.black
+            isReallyLabel.textColor = UIColor.black
+        }else if hour >= 19{
+            self.view.backgroundColor = UIColor.black
+            textField.backgroundColor = UIColor.lightGray
+            textField.textColor = UIColor.white
+            isReallyLabel.textColor = UIColor.orange
+        }else{
+            self.view.backgroundColor = UIColor.black
+            textField.backgroundColor = UIColor.lightGray
+            textField.textColor = UIColor.white
+            isReallyLabel.textColor = UIColor.orange
+        }
     }
 
     override func didReceiveMemoryWarning() {
